@@ -61,7 +61,13 @@ const TaskPage = () => {
   
       const dataTask = await responseTask.json();
       if (!responseTask.ok) {
-        throw new Error('Failed to fetch tasks');
+        if(dataTask["message"]==="JWT Expired Please login again."){
+          alert(dataTask["message"]);
+          navigate('/login', {replace:true});
+        }
+        else{
+          throw new Error('Failed to fetch Tasks');
+        }
       }
       setTasks(dataTask);
     } catch (error) {
@@ -70,7 +76,7 @@ const TaskPage = () => {
     } finally {
       setLoading(false); // stop loading
     }
-  }, [tokenid]);
+  }, [tokenid,navigate]);
   
 
   useEffect(() => {

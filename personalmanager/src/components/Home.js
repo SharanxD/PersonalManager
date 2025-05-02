@@ -24,7 +24,13 @@ const HomePage = () => {
         });
         const alldata = await responseData.json();
         if (!responseData.ok) {
-          throw new Error('Failed to fetch tasks');
+          if(alldata["message"]==="JWT Expired Please login again."){
+            alert(alldata["message"]);
+            navigate('/login', {replace:true});
+          }
+          else{
+            throw new Error('Failed to fetch Data');
+          }
         }
         setTasks(alldata["results"]["tasks"]);
         setNotes(alldata["results"]["notes"]);
@@ -34,7 +40,7 @@ const HomePage = () => {
       } finally {
         setLoading(false); // stop loading
       }
-    }, [tokenid]);
+    }, [tokenid,navigate]);
 
   useEffect(() => {
       const controller = new AbortController();

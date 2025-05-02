@@ -30,7 +30,14 @@ const NotesPage = () => {
 
       const dataNotes = await responseNote.json();
       if (!responseNote.ok) {
-        throw new Error('Failed to fetch data');
+        if(dataNotes["message"]==="JWT Expired Please login again."){
+          alert(dataNotes["message"]);
+          navigate('/login', {replace:true});
+        }
+        else{
+          throw new Error('Failed to fetch Notes');
+        }
+      
       }
       setNotes(dataNotes);
     } catch (error) {
@@ -39,7 +46,7 @@ const NotesPage = () => {
     } finally {
       setLoading(false); // stop loading
     }
-  }, [tokenid]);
+  }, [tokenid,navigate]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -61,13 +68,20 @@ const NotesPage = () => {
         },
         body: JSON.stringify(postdata)
       });
-
+      const AddNotebody= await responseAddNote.json();
       if (responseAddNote.ok) {
+        
         alert("Note Added Successfully");
         setDesc(''); // clear input
         fetchData(); // refresh notes
       } else {
-        alert("Error in adding note");
+        if(AddNotebody["message"]==="JWT Expired Please login again."){
+          alert(AddNotebody["message"]);
+          navigate('/login', {replace:true});
+        }
+        else{
+          throw new Error('Error in Adding Notes');
+        }
       }
     } catch (error) {
       console.error('Error in posting:', error);
