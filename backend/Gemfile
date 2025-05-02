@@ -7,6 +7,8 @@ gem 'bcrypt'
 gem 'sinatra-contrib', '2.1.0'
 gem 'rack-cors'
 gem 'jwt'
+gem 'puma'
+gem 'pg'
 
 
 require 'json'

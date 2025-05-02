@@ -1,0 +1,8 @@
+*.sqlite3
+*.log
+*.tmp
+.bundle/
+spec/
+.rspec
+Dockerfile
+
