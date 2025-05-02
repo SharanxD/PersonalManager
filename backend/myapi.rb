@@ -8,9 +8,9 @@ require 'jwt'
 SECRET_KEY = 'SharanProject1'
 DB = PG.connect(
   host: 'db',
-  dbname: 'pmdb',    # <-- replace with your PostgreSQL DB name
-  user: 'sharanubuntu',      # <-- replace with your PostgreSQL user
-  password: 'admin',  # <-- replace with your PostgreSQL password
+  dbname: 'pmdb',  
+  user: 'sharanubuntu',   
+  password: 'admin', 
   port: 5432
 )
 

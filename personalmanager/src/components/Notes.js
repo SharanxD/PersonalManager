@@ -133,9 +133,8 @@ const NotesPage = () => {
   return (
     <div className="container-fluid vh-100 d-flex p-0 image-side">
       {/* NAVBAR */}
-      <div className="d-flex flex-column p-3 bg-light" style={{ width: '250px', height: '100vh' }}>
+      <div className="d-flex flex-column p-3 bg-light" style={{ width: '150px', height: '100vh' }}>
         <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-          <i className="bi bi-bootstrap-fill me-2 fs-4"></i>
           <span className="fs-4">PERSONAL MANAGER</span>
         </a>
         <hr />
@@ -164,10 +163,11 @@ const NotesPage = () => {
       </div>
 
       {/* NOTES VIEW */}
-      <div className="col-md-7 p-4 d-flex flex-column" id="Notes" style={{ height: "calc(100vh - 30px)" }}>
+      <div className="col-md-7 p-4 d-flex flex-column vh-100" id="Notes">
         <div className="card shadow-sm flex-grow-1 d-flex flex-column">
           <div className="card-body overflow-auto">
             <h4 className="card-title">Notes</h4>
+            <hr/>
             {loading ? (
               <div className="d-flex justify-content-center align-items-center" style={{ height: '80%' }}>
                 <div className="spinner-border text-primary" role="status">
@@ -190,7 +190,7 @@ const NotesPage = () => {
                     </div>
                 ))
               ) : (
-                <p>No notes found.</p>
+                <div className='d-flex justify-content-center align-items-center' style={{ height: '90%' }}><h3 className='text-muted'>No Notes found.</h3></div>
               )
             )}
           </div>

@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const username = localStorage.getItem('username');
   const tokenid = localStorage.getItem('jwttoken');
   const [tasks, setTasks] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [loading, setLoading] = useState(true); // <-- Added loading state
+  const [loading, setLoading] = useState(true);
   const fetchData = useCallback(async () => {
       if (!tokenid) {
         console.error('No token found');
@@ -63,8 +64,7 @@ const HomePage = () => {
   return (
     <div className="container-fluid vh-100 d-flex p-0 image-side">
       <div className="d-flex flex-column p-3 bg-light" style={{ width: '159px', height: '100vh' }}>
-        <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-          <i className="bi bi-bootstrap-fill me-2 fs-4"></i>
+        <a href="/home" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
           <span className="fs-4">PERSONAL MANAGER</span>
         </a>
         <hr />
@@ -95,40 +95,46 @@ const HomePage = () => {
       {/* Displaying tasks */}
       <div className='container-fluid vh-100 d-flex p-0'>
 
-      
+      <div className='container-fluid vh-100 d-flex flex-column'>
+        <div className='d-inline-block rounded bg-light text-end mx-4 mt-4 mb-2 p-3'>
+        <h2 className='text-dark'>Welcome {username}</h2></div>
+        <div className='container-fluid vh-100 d-flex p-0'>
 
-      <div className="col-md-6 p-4  d-flex flex-column" id="tasks" style={{ height: "calc(100vh)" }}>
-        <div className="card shadow-sm flex-grow-1 d-flex flex-column">
-          <div className="card-body">
-            <h4 className="card-title">Tasks</h4>
-            {loading ? (
-              <div className="d-flex justify-content-center align-items-center" style={{ height: '80%' }}>
-                <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Loading...</span>
+
+        <div className="col-md-6 p-4  d-flex flex-column" id="tasks" style={{height:'100%'}}>
+          <div className="card shadow-sm flex-grow-1 d-flex flex-column">
+            <div className="card-body">
+              <h4 className="card-title">Tasks</h4>
+              <hr/>
+              {loading ? (
+                <div className="d-flex justify-content-center align-items-center" style={{ height: '80%' }}>
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              tasks.length > 0 ? (
-                tasks.map((task, index) => (
-                    <div className="card-body shadow-lg border border-dark rounded m-3">
-                      <h5 className="card-title">{task.title}</h5>
-                      <p className="card-text">{task.description}</p>
-                      <p className="card-text"><strong>End Time:</strong> {task.endtime}</p>
-                    </div>
-                ))
               ) : (
-                <p>No tasks found.</p>
-              )
-            )}
+                tasks.length > 0 ? (
+                  tasks.map((task, index) => (
+                      <div className="card-body shadow-lg border border-dark rounded m-3">
+                        <h5 className="card-title">{task.title}</h5>
+                        <p className="card-text">{task.description}</p>
+                        <p className="card-text"><strong>End Time:</strong> {task.endtime}</p>
+                      </div>
+                  ))
+                ) : (
+                  <div className='d-flex justify-content-center align-items-center' style={{ height: '100%' }}><h3 className='text-muted'>No tasks found.</h3></div>
+                )
+              )}
+            </div>
           </div>
-        </div>
       </div>
 
       {/* Displaying notes */}
-      <div className="col-md-6 p-4 d-flex flex-column" id="Notes" style={{ height: "calc(100vh )" }}>
+      <div className="col-md-6 p-4 d-flex flex-column" id="Notes" style={{height:'100%'}}>
         <div className="card shadow-sm flex-grow-1 d-flex flex-column">
           <div className="card-body">
             <h4 className="card-title">Notes</h4>
+            <hr/>
             {loading ? (
               <div className="d-flex justify-content-center align-items-center" style={{ height: '80%' }}>
                 <div className="spinner-border text-primary" role="status">
@@ -144,12 +150,15 @@ const HomePage = () => {
                     </div>
                 ))
               ) : (
-                <p>No notes found.</p>
+                <div className='d-flex justify-content-center align-items-center' style={{ height: '100%' }}><h3 className='text-muted'>No Notes found.</h3></div>
               )
             )}
           </div>
         </div>
       </div>
+      </div></div>
+
+      
       </div>
     </div>
   );

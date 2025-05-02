@@ -87,11 +87,11 @@ const LoginPage = () => {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary w-100">Login</button>
+            <button type="submit" className="btn btn-primary w-100">Create User</button>
           </form>
 
           <p className="text-center mt-3">
-            Have an account? <a href="/login">Sign Up</a>
+            Have an account? <a href="/login">Log in</a>
           </p>
         </div>
         </div>
